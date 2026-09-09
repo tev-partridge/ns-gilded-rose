@@ -46,3 +46,67 @@ describe('Golden Master Test', () => {
         expect(gildedRose.items[3].sellIn).to.equal(5);
     })
 })
+
+describe('Items', () => {
+    it('Quality never exceeds 50', () => {
+        const gildedRose = new GildedRose([new Item('Aged Brie', 10, 50)]);
+        gildedRose.updateQuality()
+        expect(gildedRose.items[0].quality).to.equal(50);
+    })
+})
+
+describe('AgedBrie', () => {
+    it('Aged Brie increases in quality over time', () => {
+        const gildedRose = new GildedRose([new Item('Aged Brie', 10, 10)]);
+        gildedRose.updateQuality()
+        expect(gildedRose.items[0].quality).to.equal(11);
+    })
+})
+
+describe('Sulfuras', () => {
+    it('Sulfuras quality doesn\'t decrease', () => {
+        const gildedRose = new GildedRose([new Item('Sulfuras, Hand of Ragnaros', 10, 10)]);
+
+        for(let i = 0; i < 100; i++) {
+            gildedRose.updateQuality()
+        }
+
+        expect(gildedRose.items[0].quality).to.equal(10);
+    })
+
+    it('Sulfuras sellIn doesn\'t decrease', () => {
+        const gildedRose = new GildedRose([new Item('Sulfuras, Hand of Ragnaros', 10, 10)]);
+
+        for(let i = 0; i < 100; i++) {
+            gildedRose.updateQuality()
+        }
+
+        expect(gildedRose.items[0].sellIn).to.equal(10);
+    })
+})
+
+describe('Backstage passes', ()=> {
+    it('Increases in quality by 1', ()=> {
+        const gildedRose = new GildedRose([new Item('Backstage passes to a TAFKAL80ETC concert', 12, 10)])
+        gildedRose.updateQuality()
+        expect(gildedRose.items[0].quality).to.equal(11);
+    })
+
+    it('Increases in quality by 2 when 10 days or less', () => {
+        const gildedRose = new GildedRose([new Item('Backstage passes to a TAFKAL80ETC concert', 10, 10)])
+        gildedRose.updateQuality()
+        expect(gildedRose.items[0].quality).to.equal(12);
+    })
+
+    it('Increases in quality by 3 when 5 days or less', () => {
+        const gildedRose = new GildedRose([new Item('Backstage passes to a TAFKAL80ETC concert', 5, 10)])
+        gildedRose.updateQuality()
+        expect(gildedRose.items[0].quality).to.equal(13);
+    })
+
+    it('Quality goes to 0 after the concert', () => {
+        const gildedRose = new GildedRose([new Item('Backstage passes to a TAFKAL80ETC concert', 0, 10)])
+        gildedRose.updateQuality()
+        expect(gildedRose.items[0].quality).to.equal(0);
+    })
+})
