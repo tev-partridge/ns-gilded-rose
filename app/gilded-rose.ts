@@ -21,35 +21,34 @@ export class GildedRose {
 
     updateQuality() {
         for (let i = 0; i < this.items.length; i++) {
-            let qualityChange = -1;
-            let sellInChange = -1;
             let itemSellIn = this.items[i].sellIn;
             let itemName = this.items[i].name;
             let itemQuality = this.items[i].quality;
 
+            let newQuality = itemQuality - 1;
+            let newSellIn = itemSellIn - 1;
+
             if (itemName === 'Aged Brie') {
-                qualityChange = 1;
+                newQuality = itemQuality + 1;
             }
             else if (itemName === 'Backstage passes to a TAFKAL80ETC concert') {
-                if (itemSellIn <= 0) qualityChange = -this.items[i].quality;
-                else if (itemSellIn < 6) qualityChange = 3;
-                else if (itemSellIn < 11) qualityChange = 2;
-                else qualityChange = 1;
+                if (itemSellIn <= 0) newQuality = 0;
+                else if (itemSellIn < 6) newQuality = itemQuality + 3;
+                else if (itemSellIn < 11) newQuality = itemQuality + 2;
+                else newQuality = itemQuality + 1;
             }
             else if (itemName === 'Sulfuras, Hand of Ragnaros') {
-                qualityChange = 0;
-                sellInChange = 0;
+                newQuality = itemQuality;
+                newSellIn = itemSellIn;
             }
             else if (itemSellIn <= 0){
-                qualityChange = -2;
+                newQuality = itemQuality - 2;
             }
 
-            let nextQuality = Math.min(this.maxQuality, itemQuality + qualityChange);
+            newQuality = Math.min(this.maxQuality, newQuality);
 
-            this.items[i].quality = nextQuality;
-            this.items[i].sellIn = itemSellIn + sellInChange;
-
-
+            this.items[i].quality = newQuality;
+            this.items[i].sellIn = newSellIn;
         }
 
         return this.items;
