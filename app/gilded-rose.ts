@@ -24,14 +24,14 @@ export class GildedRose {
             let itemSellIn = this.items[i].sellIn;
             let itemName = this.items[i].name;
             let itemQuality = this.items[i].quality;
-            let qualityMultiplier = 1;
+            let qualityDecrease = 1;
 
             // Next will check if conjured in name
             if (itemName === "Conjured") {
-                qualityMultiplier = 2;
+                qualityDecrease = 2;
             }
 
-            let newQuality = itemQuality - qualityMultiplier;
+            let newQuality = itemQuality - qualityDecrease;
             let newSellIn = itemSellIn - 1;
 
             if (itemName === 'Aged Brie') {
@@ -48,7 +48,7 @@ export class GildedRose {
                 newSellIn = itemSellIn;
             }
             else if (itemSellIn <= 0){
-                newQuality = itemQuality - (2 * qualityMultiplier);
+                newQuality = itemQuality - (2 * qualityDecrease);
             }
 
             newQuality = Math.min(this.maxQuality, newQuality);
