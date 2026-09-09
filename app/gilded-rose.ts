@@ -26,11 +26,9 @@ export class GildedRose {
             let itemQuality = this.items[i].quality;
             let qualityDecrease = 1;
 
-            // Next will check if conjured in name
-            if (itemName === "Conjured") {
+            if (itemName === "Conjured Mana Cake") {
                 qualityDecrease = 2;
             }
-
             let newQuality = itemQuality - qualityDecrease;
             let newSellIn = itemSellIn - 1;
 

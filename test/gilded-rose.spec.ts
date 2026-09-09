@@ -113,12 +113,12 @@ describe('Backstage passes', ()=> {
 
 describe('Conjured', () => {
     it('Regular items degrade by 2', () => {
-        const gildedRose = new GildedRose([new Item('Conjured', 10, 10)]);
+        const gildedRose = new GildedRose([new Item('Conjured Mana Cake', 10, 10)]);
         gildedRose.updateQuality()
         expect(gildedRose.items[0].quality).to.equal(8);
     })
     it('Regular items degrade by 4 past sell by date', () => {
-        const gildedRose = new GildedRose([new Item('Conjured', 0, 10)]);
+        const gildedRose = new GildedRose([new Item('Conjured Mana Cake', 0, 10)]);
         gildedRose.updateQuality()
         expect(gildedRose.items[0].quality).to.equal(6);
     })
